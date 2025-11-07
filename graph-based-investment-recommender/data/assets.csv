@@ -1,0 +1,21 @@
+symbol,name,sector,volatility,avg_return
+AAPL,Apple Inc.,Technology,0.25,-0.04
+GOOGL,Alphabet Inc.,Communication Services,0.09,-0.081
+MSFT,Microsoft Corporation,Technology,0.17,-0.056
+JNJ,Johnson & Johnson,Healthcare,0.06,-0.086
+XOM,Exxon Mobil Corporation,Energy,0.33,0.141
+JPM,JPMorgan Chase & Co.,Financial Services,0.3,0.099
+V,Visa Inc.,Financial Services,0.17,-0.0
+PG,The Procter & Gamble Company,Consumer Defensive,0.2,0.117
+NVDA,NVIDIA Corporation,Technology,0.2,0.021
+TSLA,"Tesla, Inc.",Consumer Cyclical,0.27,-0.024
+AMZN,"Amazon.com, Inc.",Consumer Cyclical,0.28,0.047
+META,"Meta Platforms, Inc.",Communication Services,0.18,0.136
+NFLX,"Netflix, Inc.",Communication Services,0.31,0.197
+DIS,The Walt Disney Company,Communication Services,0.1,0.007
+PFE,Pfizer Inc.,Healthcare,0.1,0.081
+INTC,Intel Corporation,Technology,0.11,0.027
+CSCO,"Cisco Systems, Inc.",Technology,0.13,0.197
+KO,The Coca-Cola Company,Consumer Defensive,0.29,0.013
+PEP,"PepsiCo, Inc.",Consumer Defensive,0.09,0.171
+WMT,Walmart Inc.,Consumer Defensive,0.2,0.078

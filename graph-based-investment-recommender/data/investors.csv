@@ -1,0 +1,61 @@
+investor_id,name,risk_tolerance,preferred_sector,domain,investment_goal
+d5b7a553-be8e-4b7b-80bc-26dce546e610,Dalton Roberts,Moderate,HealthTech,HealthTech,Education
+67ce2d2a-b75a-4ea9-abd3-393be488bb93,Maria Ball,Moderate,EduTech,EduTech,Education
+44c624c1-47de-42e7-90b4-c4977db23231,Sarah Morgan DDS,Moderate,EnergyTech,EnergyTech,Wealth Growth
+58be0c9e-f5a6-4d70-a23f-095a6d75bf21,Brittany Long,Moderate,EduTech,EduTech,Wealth Growth
+b1bc1669-9018-41c5-aecf-0663e29269c9,Christopher Andrade,High,GreenTech,GreenTech,Wealth Growth
+3cab2067-568b-4bed-b434-a8bcae2f40b8,John Reyes,Low,EduTech,EduTech,Education
+d97138e6-3435-4414-9222-6faccb5bf434,Kristy Duncan,High,HealthTech,HealthTech,Education
+cd94f517-3461-4970-af5b-0f2377671dbe,Clayton Johnson,Moderate,EduTech,EduTech,Education
+01a5ec0a-acff-4014-aeda-1c9001c99a2f,Tony Reyes,High,HealthTech,HealthTech,Short-term Gain
+41418658-5ab8-4797-a5fb-2e6167d23ac5,Amanda Brown,Low,GreenTech,GreenTech,Short-term Gain
+178c92ca-b620-4ebc-9b52-d4713b57414f,Andrew Lee,High,FinTech,FinTech,Retirement
+e223cd71-0824-4224-9f01-1b1898131d04,Michelle Brewer,High,FinTech,FinTech,Wealth Growth
+3880df7b-2c4a-495e-a849-ce65c1f873e1,Thomas Walsh,Low,EduTech,EduTech,Wealth Growth
+6ddbc68e-f6db-47aa-9bb5-c2e02752ba24,Mary Sims,Moderate,FinTech,FinTech,Retirement
+4b71df28-fcaa-42e5-b268-a7b3a0c21e16,Carol Moody,Moderate,FinTech,FinTech,Education
+f35ba598-89a0-499a-8465-5cb1262b3107,William Walker,Low,HealthTech,HealthTech,Retirement
+f0cdb002-b156-490a-b5d2-f9dc42c3c22e,Katherine Knight,Moderate,EduTech,EduTech,Education
+d19a333c-e1fc-4776-93e3-35978a8c8a14,Jennifer Cruz,Low,EnergyTech,EnergyTech,Retirement
+e03957e2-ad6d-4cc6-8933-9cd24fd11737,Shelia Marshall,Moderate,EnergyTech,EnergyTech,Short-term Gain
+82adc190-9e5e-4725-b571-937921528e21,Brooke Mathews,Low,GreenTech,GreenTech,Education
+9a18c123-5c85-4573-9338-8c794bc29232,Erica Morgan,High,GreenTech,GreenTech,Retirement
+31fcba1f-a76a-4dd4-9845-0e165ca57524,Monica Hahn,High,HealthTech,HealthTech,Short-term Gain
+56e39b85-c9ef-43c6-9a26-7142bb0914cb,Daniel Hernandez,High,GreenTech,GreenTech,Short-term Gain
+d916d84c-927b-4a8f-97ca-e69c15d5d09b,Lindsey Long,Moderate,EnergyTech,EnergyTech,Retirement
+9f15327c-050b-4df2-80c6-1c7f8657b0e4,Brett Owens,High,HealthTech,HealthTech,Retirement
+a43c178a-0985-4330-befb-6c274d506abf,Brian Osborne,High,GreenTech,GreenTech,Short-term Gain
+98a3a017-3bec-4c4e-a896-fa0c624e37ff,Maria Thompson,High,GreenTech,GreenTech,Retirement
+1a6320f8-d720-4497-8633-18e3696ecaa8,Corey Miller,Moderate,GreenTech,GreenTech,Retirement
+66a8a440-49f1-4b11-acc9-4d454a580021,James Meyer,High,EduTech,EduTech,Wealth Growth
+841f95a5-9bbb-45e7-87cd-eafbad877eac,Kevin Stewart,High,EnergyTech,EnergyTech,Wealth Growth
+f361391e-1f4b-43cb-8c5f-c1672fbb40fd,Michael Harris,High,FinTech,FinTech,Retirement
+87ca8ae4-42d6-499c-9e12-2fa08d62e78d,Lori Melendez,Low,EnergyTech,EnergyTech,Education
+23f9da97-b3e3-4580-88cb-6f9400a8931e,Tamara Nichols,Moderate,EnergyTech,EnergyTech,Retirement
+345fa57d-c139-483f-90a9-a311d9a3ec5c,Rachel Mathews,Moderate,FinTech,FinTech,Wealth Growth
+b2ac0183-c6e8-4c5a-8d7f-38fc94af4ee1,Jennifer Kim,Low,GreenTech,GreenTech,Education
+a22f9cc0-eed4-4506-8743-7b4b442f6f58,Alex Price,Moderate,HealthTech,HealthTech,Wealth Growth
+1a22a91d-f143-4f6d-815a-f70b5d990a84,Tara Hensley,High,HealthTech,HealthTech,Retirement
+582744dd-0cd0-4fe3-b59d-a96c2e2d4232,Kaitlyn West,Low,EduTech,EduTech,Short-term Gain
+c48e5cd6-508d-4ada-8c3e-d7e82593aaa6,Stephen Davidson,High,EnergyTech,EnergyTech,Wealth Growth
+f7cc276a-a9db-4eac-b668-0ae75878dc76,Chelsea Stanley,Low,GreenTech,GreenTech,Retirement
+eaf57c26-b7f4-4827-a6fc-a9a5eba24fad,Ray Peck,High,HealthTech,HealthTech,Short-term Gain
+61533138-47e1-4e39-be7d-f117e6705353,Mario Jacobs,High,EduTech,EduTech,Education
+a6f9e0fd-adc6-4fef-8cf5-31aca1203183,James Brown,High,GreenTech,GreenTech,Short-term Gain
+c3e0d7b7-57c9-4ebc-bf3b-081cfc0e042b,Pamela Flores,High,HealthTech,HealthTech,Education
+9a351c1d-dd44-4d2c-a5a1-c747e2509c99,Heather Warner,Low,EnergyTech,EnergyTech,Retirement
+bc4d3c04-6de0-41a1-b22b-92778f2c961c,Daniel Cook,High,FinTech,FinTech,Short-term Gain
+bb969a5d-3dc8-4f99-a636-97dfd12d6e33,Maurice Mckay,High,HealthTech,HealthTech,Retirement
+aba7cf9d-f9ef-4afe-9986-ff327967f15b,Amanda Williams,High,EnergyTech,EnergyTech,Retirement
+185eba01-3c5e-490f-9906-26d615d1dc96,Justin Keith,Low,FinTech,FinTech,Retirement
+0f489fb3-bb90-4130-bbc5-6beec52354b3,Robert Bryant,Moderate,HealthTech,HealthTech,Education
+48cc9972-eec7-41df-b441-e4bc78f92c76,Deborah Jackson,Moderate,GreenTech,GreenTech,Wealth Growth
+c18c789a-8799-4395-a156-76eba982e24a,Susan Brown,Low,GreenTech,GreenTech,Retirement
+76b5d362-8b73-45d5-a5a2-36a8f85025e1,Jillian Williams,High,EnergyTech,EnergyTech,Retirement
+cfb3aff1-f756-48fb-9387-f69c41e30e1e,Michael Reid,High,EduTech,EduTech,Wealth Growth
+e5434305-84fa-44e1-bcc7-1e3fb6c24d24,Deborah Ramos,Low,FinTech,FinTech,Wealth Growth
+5b172e5d-c869-4dfd-abaf-90537e0bc64e,Peter Smith,Low,GreenTech,GreenTech,Short-term Gain
+f1117225-7003-4382-a3f7-0b2ab8cdae9b,Rebecca Reyes,High,HealthTech,HealthTech,Wealth Growth
+5d246667-c3c4-496e-a817-9a01bbadf1f3,Jim Martinez,Low,EduTech,EduTech,Retirement
+75b18a11-3462-4c16-8eda-2ef0de244cb6,John Knapp,Low,FinTech,FinTech,Wealth Growth
+330bde8b-047d-4e19-b0ce-7253a82364a3,Lisa Paul,High,GreenTech,GreenTech,Short-term Gain

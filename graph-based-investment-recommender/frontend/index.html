@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investor Network & Recommendation Dashboard</title>
+
+  <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  <link href="https://unpkg.com/vis-network@9.1.2/styles/vis-network.min.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f7f9fc;
+      color: #222;
+    }
+    h1 { color: #0c2340; margin-bottom: 20px; }
+    h2 { color: #333; margin-top: 30px; }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button:hover { background: #0056b3; }
+    table {
+      background: white;
+      border-collapse: collapse;
+      margin-top: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    #recommendationResult {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    #network, #pagerankNetwork, #similarityNetwork {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 10px;
+      background: #fff;
+    }
+    #legend {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      gap: 12px;
+      padding: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+    .color-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Investor Network & Recommendation Dashboard</h1>
+
+  <h2>Investor Recommendation</h2>
+  <input id="investorInput" type="text" placeholder="Enter investor name" />
+  <button id="getRecBtn">Get Recommendation</button>
+  <div id="recommendationResult"></div>
+
+  <h2>Top Investors by Portfolio Size</h2>
+  <table id="investorTable">
+    <thead>
+      <tr><th>Name</th><th>Risk Tolerance</th><th>Investments</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Investor Communities (Louvain Clusters)</h2>
+  <div id="network"></div>
+  <div id="legend"></div>
+
+  <h2>Investor Influence (PageRank Scores)</h2>
+  <div id="pagerankNetwork"></div>
+
+  <h2>Jaccard Similarity: Investor Similarity Network</h2>
+  <div id="similarityNetwork"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      loadTopInvestors();
+      loadCommunities();
+      loadPageRank();
+      loadSimilarity();
+      document.getElementById("getRecBtn").addEventListener("click", () => {
+        const name = document.getElementById("investorInput").value.trim();
+        if (!name) { alert("Please enter an investor name!"); return; }
+        getRecommendation(name);
+      });
+    });
+
+    async function loadTopInvestors() {
+      const res = await fetch("http://127.0.0.1:5000/top_investors");
+      const data = await res.json();
+      const tbody = document.querySelector("#investorTable tbody");
+      tbody.innerHTML = "";
+      data.forEach(inv => {
+        tbody.innerHTML += `
+          <tr><td>${inv.name}</td>
+          <td>${inv.risk_tolerance || "-"}</td>
+          <td>${inv.investments}</td></tr>`;
+      });
+    }
+
+    async function loadCommunities() {
+      const res = await fetch("http://127.0.0.1:5000/communities");
+      const data = await res.json();
+
+      const nodesWithGroups = data.nodes.map((n, idx) => ({
+        ...n,
+        community: n.community || n.group || n.cluster || idx % 10
+      }));
+
+      const uniqueCommunities = [...new Set(nodesWithGroups.map(n => n.community))];
+      const colorPalette = [
+        "#FF6B6B", "#4D96FF", "#6BCB77", "#FFD93D", "#845EC2",
+        "#00C9A7", "#C34A36", "#FF7F3F", "#9B5DE5", "#00BBF9",
+        "#FFC75F", "#2EC4B6", "#E71D36", "#FF9F1C", "#F9F871"
+      ];
+      const colorMap = {};
+      uniqueCommunities.forEach((c, i) => { colorMap[c] = colorPalette[i % colorPalette.length]; });
+
+      const nodes = new vis.DataSet(
+        nodesWithGroups.map(n => ({
+          id: n.id || n.label || n.name,
+          label: n.label || n.id || n.name,
+          color: {
+            background: colorMap[n.community],
+            border: "#333",
+            highlight: { background: colorMap[n.community], border: "#000" }
+          },
+          font: { color: "#111" },
+          title: `Community ${n.community}`
+        }))
+      );
+
+      const edges = new vis.DataSet(
+        data.edges.map(e => ({
+          from: e.source,
+          to: e.target,
+          color: { color: "#ccc" }
+        }))
+      );
+
+      const network = new vis.Network(document.getElementById("network"), { nodes, edges }, {
+        nodes: { shape: "dot", size: 16, borderWidth: 1.5 },
+        edges: { smooth: true, width: 0.8 },
+        physics: { enabled: true, solver: "barnesHut" },
+        interaction: { hover: true, zoomView: true }
+      });
+
+      network.once("stabilizationIterationsDone", () => network.setOptions({ physics: false }));
+      network.on("click", params => {
+        if (params.nodes.length > 0) {
+          const investorName = params.nodes[0];
+          document.getElementById("investorInput").value = investorName;
+          getRecommendation(investorName);
+        }
+      });
+
+      const legendContainer = document.getElementById("legend");
+      legendContainer.innerHTML = "";
+      uniqueCommunities.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "legend-item";
+        div.innerHTML = `<div class="color-box" style="background:${colorMap[c]}"></div><span>Community ${c}</span>`;
+        legendContainer.appendChild(div);
+      });
+    }
+
+    async function loadPageRank() {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/pagerank");
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) return;
+
+        const nodes = data.map((p, idx) => ({
+          id: p.investor || `node${idx}`,
+          label: `${p.investor}\n(${p.score.toFixed(4)})`,
+          value: p.score * 100 + 10,
+          color: { background: "#4D96FF", border: "#002B5B" },
+          font: { color: "#000", size: 18, bold: true },
+          title: `PageRank Score: ${p.score.toFixed(6)}`
+        }));
+
+        const edges = [];
+        for (let i = 0; i < nodes.length - 1; i++) {
+          edges.push({ from: nodes[i].id, to: nodes[i + 1].id, color: "#bbb" });
+        }
+
+        const container = document.getElementById("pagerankNetwork");
+        const network = new vis.Network(container, { nodes, edges }, {
+          nodes: { shape: "dot", borderWidth: 1.5, scaling: { min: 10, max: 40 } },
+          edges: { smooth: true, width: 0.8, color: "#ccc" },
+          physics: { solver: "forceAtlas2Based", stabilization: { iterations: 200 } },
+          interaction: { hover: true, zoomView: true, dragView: true }
+        });
+        network.once("stabilizationIterationsDone", () => network.setOptions({ physics: false }));
+      } catch (err) {
+        console.error("Error loading PageRank:", err);
+      }
+    }
+
+    async function loadSimilarity() {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/similarity");
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) return;
+
+        const nodesSet = new Set();
+        const edges = data.map(d => {
+          nodesSet.add(d.investor1);
+          nodesSet.add(d.investor2);
+          return {
+            from: d.investor1,
+            to: d.investor2,
+            label: d.similarity ? d.similarity.toFixed(2) : "",
+            width: d.similarity ? d.similarity * 5 : 1,
+            color: { color: "#6BCB77" }
+          };
+        });
+
+        const nodes = Array.from(nodesSet).map(n => ({ id: n, label: n }));
+        const network = new vis.Network(document.getElementById("similarityNetwork"), { nodes, edges }, {
+          nodes: { shape: "dot", size: 16, color: "#FFD93D" },
+          edges: { smooth: true },
+          physics: { solver: "barnesHut" },
+          interaction: { hover: true }
+        });
+      } catch (err) {
+        console.error("Error loading similarity network:", err);
+      }
+    }
+
+    async function getRecommendation(name) {
+      const resultDiv = document.getElementById("recommendationResult");
+      resultDiv.innerHTML = `<p>Loading recommendations for <b>${name}</b>...</p>`;
+      try {
+        const res = await fetch(`http://127.0.0.1:5000/recommendations/${encodeURIComponent(name)}`);
+        const data = await res.json();
+
+        if (data.error) {
+          resultDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+          return;
+        }
+
+        resultDiv.innerHTML = `
+          <h3>${data.investor}</h3>
+          <p><b>Risk:</b> ${data.risk_tolerance}</p>
+          <p><b>Domain:</b> ${data.domain}</p>
+          <p><b>Community ID:</b> ${data.community_id}</p>
+          <h4>Similar Investors:</h4>
+          <ul>${data.similar_investors.map(i => `<li>${i}</li>`).join("")}</ul>
+          <h4>Recommended Assets:</h4>
+          <ul>${data.recommended_assets.map(a => `<li>${a}</li>`).join("")}</ul>
+          <h4>Community Peers:</h4>
+          <ul>${data.community_peers.map(p => `<li>${p}</li>`).join("")}</ul>
+        `;
+      } catch (err) {
+        console.error("Error fetching recommendation:", err);
+        resultDiv.innerHTML = `<p style="color:red;">Failed to load recommendation.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
