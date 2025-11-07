@@ -1,0 +1,6 @@
+Flask==3.0.3
+neo4j==5.15.0
+flask-cors==4.0.1
+pandas==2.2.2
+yfinance==0.2.43
+numpy==1.26.4
